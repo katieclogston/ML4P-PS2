@@ -1,0 +1,44 @@
+import numpy as np
+import matplotlib.pyplot as plt 
+from sklearn.neural_network import MLPRegressor as melp
+import os 
+
+# psa... all of this is a bit hand wavey... #
+
+### EXAMPLESSS ###
+def parabola(x):
+    return x**2
+def cosine(x):
+    return np.cos(x)
+
+### TRAIN ###
+X_train = np.linspace(-5,5,100).reshape(-1,1)
+X_test = np.linspace(-5,5,200).reshape(-1,1)
+for n in [parabola, cosine]:
+    Y_train = n(X_train)
+    Y_actual = n(X_test)
+    ### BASELINE ###
+    base = melp(random_state = 1, max_iter = 5555)
+    base.fit(X_train, Y_train.ravel())
+    ### hθ HELLO (A LIFE OF EXCLUSIVELY SQUARES (WICKED EVEN)) ###
+    X_train_h = X_train **2
+    X_test_h = X_test **2
+    h = melp(random_state = 1, max_iter = 5555)
+    h.fit(X_train_h, Y_train.ravel())
+    ### VERSUS (COMPARE ROOT MEAN SQUARE) ###
+    rmse_base = np.sqrt(np.mean((Y_actual.ravel() 
+                        - base.predict(X_test))**2))
+    rmse_h = np.sqrt(np.mean((Y_actual.ravel() - 
+                        h.predict(X_test_h))**2))
+    print(f"""{n.__name__}: baseline RMSE={rmse_base:.4f}, 
+            hθ RMSE={rmse_h:.4f}""")
+    plt.figure()
+    plt.plot(X_test,Y_actual,label='actual',color ='k')
+    plt.plot(X_test,base.predict(X_test),label="baseline",color='blue')
+    plt.plot(X_test,h.predict(X_test_h),label='hθ',color='red')
+    plt.title(n.__name__)
+    plt.legend()
+    plt.close
+    plt.savefig(f'{n.__name__}_comparison.png')
+### COSINE NOT OUT PERFORMING, PROBABLY BECAUSE MY MODEL JUST SQUARED EVERYTHING... ###
+### THE COSTS OF SIMPLICITY </3 ###
