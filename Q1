@@ -41,4 +41,3 @@ for n in [parabola, cosine]:
     plt.close
     plt.savefig(f'{n.__name__}_comparison.png')
 ### COSINE NOT OUT PERFORMING, PROBABLY BECAUSE MY MODEL JUST SQUARED EVERYTHING... ###
-### THE COSTS OF SIMPLICITY </3 ###
