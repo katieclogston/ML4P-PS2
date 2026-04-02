@@ -20,7 +20,7 @@ for n in [parabola, cosine]:
     ### BASELINE ###
     base = melp(random_state = 1, max_iter = 5555)
     base.fit(X_train, Y_train.ravel())
-    ### hθ HELLO (A LIFE OF EXCLUSIVELY SQUARES (WICKED EVEN)) ###
+    ### hθ HELLO (A LIFE OF EXCLUSIVELY SQUARES) ###
     X_train_h = X_train **2
     X_test_h = X_test **2
     h = melp(random_state = 1, max_iter = 5555)
